@@ -1,4 +1,4 @@
-import scipy.misc
+import imageio
 import os
 import glob
 import numpy as np
@@ -19,7 +19,7 @@ datapath=options.datapath
 tfrecord_file = options.tfrecord
 
 def imread(path):
-    img = scipy.misc.imread(path)
+    img = imageio.imread(path)
     return img
 
 def gradients(x):
