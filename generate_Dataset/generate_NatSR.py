@@ -1,10 +1,10 @@
-import scipy.misc
+import imageio
 import os
 import glob
 import numpy as np
 import tensorflow as tf
 from argparse import ArgumentParser
-from .augmentation import augmentation
+from augmentation import augmentation
 
 scale=2
 
@@ -19,7 +19,7 @@ datapath=options.datapath
 tfrecord_file = options.tfrecord
 
 def imread(path):
-    img = scipy.misc.imread(path)
+    img = imageio.imread(path)
     return img
 
 def gradients(x):
@@ -39,8 +39,8 @@ def modcrop(imgs, modulo):
     return out
 
 def data_ready_SR(data_path,label_path,tfrecord_file,patch_h,patch_w,stride):
-    label_list=np.sort(np.asarray(glob.glob(os.path.join(label_path, '/*.png'))))
-    img_list = np.sort(np.asarray(glob.glob(os.path.join(data_path, 'X' +  str(scale) + '/*.png'))))
+    label_list=np.sort(np.asarray(glob.glob(os.path.join(label_path, '*.png'))))
+    img_list = np.sort(np.asarray(glob.glob(os.path.join(data_path, 'X' +  str(scale), '*.png'))))
 
     offset=0
 
