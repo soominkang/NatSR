@@ -39,8 +39,8 @@ def modcrop(imgs, modulo):
     return out
 
 def data_ready_NMD(data_path,label_path,tfrecord_file,patch_h,patch_w,stride):
-    label_list=np.sort(np.asarray(glob.glob(os.path.join(label_path, '/*.png'))))
-    img_list = np.sort(np.asarray(glob.glob(os.path.join(data_path, 'X' +  str(scale) + '/*.png'))))
+    label_list=np.sort(np.asarray(glob.glob(os.path.join(label_path, '*.png'))))
+    img_list = np.sort(np.asarray(glob.glob(os.path.join(data_path, 'X' +  str(scale), '*.png'))))
 
     offset=0
 
@@ -59,8 +59,8 @@ def data_ready_NMD(data_path,label_path,tfrecord_file,patch_h,patch_w,stride):
         for m in range(4):
             for i in range(0+offset,x-patch_h+1,stride):
                 for j in range(0+offset,y-patch_w+1,stride):
-                    patch_d = img[i:i + patch_h, j:j+ patch_w]
-                    patch_l = label[i:i + patch_h, j:j + patch_w]
+                    patch_d = img[i:i + patch_h, j:j+ patch_w, :]
+                    patch_l = label[i:i + patch_h, j:j + patch_w, :]
 
                     if gradients(patch_l.astype(np.float64)/255.) >= 0.005 and np.var(patch_l.astype(np.float64)/255.) >= 0.03:
                         patches.append(augmentation(patch_d, m).tobytes())
