@@ -148,7 +148,7 @@ class Train(object):
                             print('[*******] Iteration:', step, 'Scale Sigma')
                             sess.run(update_sigma)
 
-                        if val_avg2 == 95.0:
+                        if val_avg2 >= 95.0:
                             print('[*******] Iteration:', step, 'Scale alpha')
                             sess.run(update_alpha)
 
